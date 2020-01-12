@@ -13,6 +13,9 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/car">Cars list</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/main">Messages</a>
             </li>
             <#if isAdmin>
