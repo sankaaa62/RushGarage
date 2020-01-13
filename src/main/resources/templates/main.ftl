@@ -10,32 +10,6 @@
         </div>
     </div>
 
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Add new Message
-    </a>
-    <div class="collapse" id="collapseExample">
-        <div class="form-group mt-3">
-            <form method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="text" placeholder="Введите сообщение"/>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="tag" placeholder="Тег"/>
-                </div>
-                <div class="form-group">
-                    <div class="custom-file">
-                        <input type="file" name="file" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
-                </div>
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Добавить</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <div class="card-columns">
         <#list messages as message>
             <div class="card my-3">
@@ -47,7 +21,18 @@
                     </div>
                     <span>${message.text}</span>
                     <div class="mt-2">
-                        <i>#${message.tag}</i>
+                        <i>$${message.car.cost} per day</i>
+                    </div>
+                    <div class="mt-2">
+                        <i>Order status: ${message.tag}</i>
+                    </div>
+                    <div class="mt-2">
+                        <b>Сar model:
+                            <#if message.car??>
+                                ${message.car.carname}
+                            </#if>
+                        </b>
+
                     </div>
                 </div>
                 <div class="card-footer text-muted">
