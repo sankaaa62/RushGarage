@@ -1,8 +1,8 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    List of users
-    <table>
+    <h3> List of users</h3>
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -19,7 +19,7 @@
                             ${role}<#sep>,
                         </#list>
                     </td>
-                    <td><a href="/user/${user.id}">edit</a> </td>
+                    <td><a href="/user/${user.id}" class="btn btn-secondary mt-2">edit</a> </td>
                 </tr>
             </#list>
         </tbody>

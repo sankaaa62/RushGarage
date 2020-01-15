@@ -52,7 +52,9 @@ public class MainController {
         }else {
             messages = messageRepo.findAll();
         }
-        messages = FilterMessagesForUser(user, messages);
+        if (!user.isAdmin()){
+            messages = FilterMessagesForUser(user, messages);
+        }
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
         return "main";

@@ -26,7 +26,7 @@
         <form action=/logout method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button class="btn btn-primary" type="submit">
-                <#if name != "nuknown">
+                <#if name != "unknown">
                     Sign Out
                 <#else>
                     Sign In

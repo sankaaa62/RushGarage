@@ -1,6 +1,15 @@
+<#include "parts/security.ftl">
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-    <h5>Hello, guest!</h5>
-    <div>This is KURSACH!</div>
+    <#if name == "unknown">
+        <h5>Hello, guest!</h5>
+    <#else>
+        <h5>Hello, ${name}!</h5>
+    </#if>
+    <div>
+        Вашему вниманию предлагается сервис по аренде автомобилей.
+        С помощью навигационной панели, перейдите к просмотру наличесвующих моделей и оформите заявку на аренду.
+        В течение суток заявка будет обработана нашими сотрудниками. Приятной езды!
+    </div>
 </@c.page>
