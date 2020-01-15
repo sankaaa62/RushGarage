@@ -48,8 +48,8 @@
                     </div>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="/car/${car.id}">Edit</a>
-                    <a href="/car/order/${car.id}">Order</a>
+                    <a href="/car/${car.id}" class="btn btn-secondary">Edit</a>
+                    <a href="/car/order/${car.id}" class="btn btn-secondary">Order</a>
                 </div>
             </div>
         <#else>

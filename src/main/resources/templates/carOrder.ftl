@@ -6,7 +6,6 @@
             <form action="/car/order/add" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <input type="hidden" name="carId" value="${car.id}"/>
-                <input type="hidden" name="tag" value="true"/>
                 <input type="hidden" name="cost" value="${car.cost}"/>
 
 

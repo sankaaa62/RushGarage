@@ -54,18 +54,17 @@ public class CarController {
     }
 
     @PostMapping("/order/add")
-    public String add (
+    public String addMessage (
             @AuthenticationPrincipal User user,
             @RequestParam String text,
             @RequestParam Integer carId,
-            @RequestParam String cost,
             @RequestParam String datestart,
             @RequestParam int duration,
-            @RequestParam String tag, Map<String, Object> model,
+            @RequestParam Map<String, Object> model,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         Optional<Car> car = carRepo.findById(carId);
-        Message message =new Message(text, tag, user, car.get(), datestart, duration);
+        Message message =new Message(text, "considered", user, car.get(), datestart, duration);
 
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
@@ -86,7 +85,7 @@ public class CarController {
         Iterable<Message> messages = messageRepo.findAll();
         model.put("messages", messages);
 
-        return "main";
+        return "redirect:/main";
     }
 
     @PostMapping("/save")
@@ -103,7 +102,7 @@ public class CarController {
     }
 
     @PostMapping
-    public String add (
+    public String addCar (
             @RequestParam String carname,
             @RequestParam String description,
             @RequestParam String cost, Map<String, Object> model,

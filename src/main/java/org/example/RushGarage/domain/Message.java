@@ -36,14 +36,6 @@ public class Message {
         this.duration = duration;
     }
 
-    //public Message(String text, String tag, User user) {
-    //    this.author = user;
-    //    this.text = text;
-    //    this.tag = tag;
-    //    this.car = car;
-    //}
-
-
     public String getAuthorName (){
         return author != null ? author.getUsername() : "<none>";
     }
