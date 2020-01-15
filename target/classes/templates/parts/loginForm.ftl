@@ -1,3 +1,4 @@
+<#include "security.ftl">
 <#macro login path isRegisterForm>
     <form action="${path}" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
@@ -22,8 +23,14 @@
 </#macro>
 
 <#macro logout>
-    <form action=/logout method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button class="btn btn-primary" type="submit">Sign Out</button>
-    </form>
+        <form action=/logout method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <button class="btn btn-primary" type="submit">
+                <#if name != "nuknown">
+                    Sign Out
+                <#else>
+                    Sign In
+                </#if>
+            </button>
+        </form>
 </#macro>

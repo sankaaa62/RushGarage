@@ -1,6 +1,5 @@
 package org.example.RushGarage.controller;
 
-import org.example.RushGarage.domain.Car;
 import org.example.RushGarage.domain.Message;
 import org.example.RushGarage.domain.User;
 import org.example.RushGarage.repos.MessageRepo;
@@ -11,15 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 @Controller
 public class MainController {
@@ -34,8 +30,21 @@ public class MainController {
         return "greeting";
     }
 
+    public Iterable<Message> FilterMessagesForUser(User user, Iterable<Message> messages) {
+        ArrayList<Message> filtredMessages = new ArrayList<Message>();
+        for (Message message : messages) {
+            if (message.getAuthor().getUsername().equals(user.getUsername())){
+                filtredMessages.add(message);
+            }
+        }
+        return filtredMessages;
+    }
+
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model){
+    public String main(
+            @AuthenticationPrincipal User user,
+            @RequestParam(required = false, defaultValue = "") String filter, Model model
+            ){
         Iterable<Message> messages;
 
         if (filter != null && !filter.isEmpty()) {
@@ -43,7 +52,7 @@ public class MainController {
         }else {
             messages = messageRepo.findAll();
         }
-
+        messages = FilterMessagesForUser(user, messages);
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
         return "main";

@@ -37,7 +37,7 @@ public class CarController {
         return "carList";
     }
 
-    @GetMapping("{car}")
+    @GetMapping("/edit/{car}")
     public String carEditForm(@PathVariable Car car, Model model) {
         model.addAttribute("car", car);
 
@@ -60,25 +60,11 @@ public class CarController {
             @RequestParam Integer carId,
             @RequestParam String datestart,
             @RequestParam int duration,
-            @RequestParam Map<String, Object> model,
-            @RequestParam("file") MultipartFile file
+            @RequestParam Map<String, Object> model
     ) throws IOException {
         Optional<Car> car = carRepo.findById(carId);
         Message message =new Message(text, "considered", user, car.get(), datestart, duration);
-
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()){
-                uploadDir.mkdir();
-            }
-
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
-
-            message.setFilename(resultFilename);
-        }
+        message.setFilename(car.get().getFilename());
 
         messageRepo.save(message);
 
@@ -90,11 +76,30 @@ public class CarController {
 
     @PostMapping("/save")
     public String carSave(
+            @RequestParam("file") MultipartFile file1,
             @RequestParam String carname,
+            @RequestParam String description,
+            @RequestParam String cost,
             @RequestParam Map<String, String> form,
-            @RequestParam("carId") Car car)
-    {
+            @RequestParam("carId") Car car
+    ) throws IOException {
+        if (file1 != null && !file1.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()){
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file1.getOriginalFilename();
+
+            file1.transferTo(new File(uploadPath + "/" + resultFilename));
+
+            car.setFilename(resultFilename);
+        }
+
         car.setCarname(carname);
+        car.setDescription(description);
+        car.setCost(cost);
 
         carRepo.save(car);
 
